@@ -12,7 +12,7 @@ export class MyMCP extends McpAgent {
   async init() {
     this.server.tool(
       "insights",
-      "Get insights about a specific quote",
+      "Provides specifics about a quote a customer has requested, including largest items they are moving, number of items, the agent they have been interacting with and the details of their move",
       {
         quoteId: z
           .string()
