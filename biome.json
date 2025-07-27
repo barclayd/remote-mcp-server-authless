@@ -13,7 +13,7 @@
 	},
 	"formatter": {
 		"enabled": true,
-		"indentStyle": "tab"
+		"indentStyle": "space"
 	},
 	"javascript": {
 		"formatter": {
@@ -47,7 +47,7 @@
 	"root": false,
 	"vcs": {
 		"clientKind": "git",
-		"enabled": true,
+		"enabled": false,
 		"useIgnoreFile": true
 	}
 }

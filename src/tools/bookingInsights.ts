@@ -13,5 +13,5 @@ export const bookingInsightsTool = async (quoteId: string) => {
 
 	const bookingInsights = BookingDataSchema.parse(data);
 
-	return { type: "text", text: String(JSON.stringify(bookingInsights)) }
+	return { type: "text", text: String(JSON.stringify(bookingInsights)) };
 };
