@@ -13,7 +13,7 @@ export class MyMCP extends McpAgent {
 
   async init() {
     this.server.tool(
-      'booking-insights',
+      'get_move_information',
       'Provides specifics about a quote a customer has requested, including largest items they are moving, number of items, the agent they have been interacting with and the details of their move',
       {
         quoteId: z
@@ -24,7 +24,7 @@ export class MyMCP extends McpAgent {
     );
 
     this.server.tool(
-      'reviews',
+      'get_anyvan_local_reviews',
       'Returns a list of reviews written by customers who have used Anyvan.com. The reviews are all written by people who moved within the provided postcode. Included in the reviews is a comment left by the reviewer, a description of what they were moving, a rating and metadata such as date and location',
       {
         postalCode: z
@@ -37,7 +37,7 @@ export class MyMCP extends McpAgent {
     );
 
     this.server.tool(
-      'local-area-insights',
+      'get_local_area_anyvan_insights',
       'Returns Anyvan-specific insights locally relevant to the provided postcode. Includes the following data points for the local area specific to Anyvan: total bookings in the area with Anyvan, average home move cost, average four bed home move cost, average savings in specified currency made by customers who have moved with Anyvan vs other removal companies, and the number of quotes received',
       {
         postalCode: z
