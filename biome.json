@@ -13,8 +13,12 @@
 	},
 	"formatter": {
 		"enabled": true,
-		"indentWidth": 4,
-		"lineWidth": 100
+		"indentStyle": "tab"
+	},
+	"javascript": {
+		"formatter": {
+			"quoteStyle": "single"
+		}
 	},
 	"linter": {
 		"enabled": true,
