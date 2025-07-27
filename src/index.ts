@@ -26,6 +26,22 @@ export class MyMCP extends McpAgent {
         };
       },
     );
+    this.server.tool(
+      "reviews",
+      "Returns a list of reviews written by customers who have used Anyvan.com. The reviews are all written by people who moved within the provided postcode. Included in the reviews is a comment left by the reviewer, a description of what they were moving, a rating and metadata such as date and location",
+      {
+        quoteId: z
+          .string()
+          .describe("UK Postal Code to use as location for fetching closest reviews (e.g. WA15 8NN)"),
+      },
+      async ({ quoteId }) => {
+        const bookingInsightsResponse = await bookingInsightsTool(quoteId);
+
+        return {
+          content: [{ type: "text", text: bookingInsightsResponse.text }],
+        };
+      },
+    );
   }
 }
 
