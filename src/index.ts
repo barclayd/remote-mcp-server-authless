@@ -10,7 +10,7 @@ export class MyMCP extends McpAgent {
 	});
 
 	async init() {
-		this.server.tool("insights", { quoteId: z.string() }, async ({ quoteId }) => {
+		this.server.tool("insights", "Get insights about a specific quote", { quoteId: z.string().describe('ID for quote (e.g. e1005ad0b50919e8c5388851f2af1d55)') }, async ({ quoteId }) => {
 
 			const bookingInsightsResponse = await bookingInsightsTool(quoteId);
 
