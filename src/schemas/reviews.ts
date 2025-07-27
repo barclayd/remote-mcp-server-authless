@@ -17,5 +17,5 @@ const ReviewSchema = z.object({
 
 export const ReviewsSchema = z.object({
   postcode: z.string(),
-  reviews: z.array(ReviewSchema)
-})
+  reviews: z.array(ReviewSchema),
+});

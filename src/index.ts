@@ -3,6 +3,7 @@ import { McpAgent } from 'agents/mcp';
 import { z } from 'zod';
 import { bookingInsightsTool } from './tools/bookingInsights';
 import { reviewsTool } from './tools/reviews';
+import { localAreaInsightsTool } from './tools/localAreaInsights';
 
 export class MyMCP extends McpAgent {
   server = new McpServer({
@@ -12,7 +13,7 @@ export class MyMCP extends McpAgent {
 
   async init() {
     this.server.tool(
-      'insights',
+      'booking-insights',
       'Provides specifics about a quote a customer has requested, including largest items they are moving, number of items, the agent they have been interacting with and the details of their move',
       {
         quoteId: z
@@ -33,6 +34,19 @@ export class MyMCP extends McpAgent {
           ),
       },
       reviewsTool,
+    );
+
+    this.server.tool(
+      'local-area-insights',
+      'Returns Anyvan-specific insights locally relevant to the provided postcode. Includes the following data points for the local area: average home move cost, average four bed home move cost, average savings in specified currency and the number of quotes received',
+      {
+        postalCode: z
+          .string()
+          .describe(
+            `UK Postal Code to use as location for fetching locally relevant insights for a customer's move (e.g. WA15 8NN, M74HU)`,
+          ),
+      },
+        localAreaInsightsTool,
     );
   }
 }
