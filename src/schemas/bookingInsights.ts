@@ -6,7 +6,7 @@ export const BookingDataSchema = z.object({
 	quoteCurrency: z.string(),
 	quoteStatus: z.string(),
 	quoteDescription: z.string().nullable(),
-	scheduledDate: z.string().datetime().nullable(),
+	scheduledDate: z.string().nullable(),
 	continueQuoteUrl: z.string().url(),
 	locations: z.object({
 		pickup: z.object({
