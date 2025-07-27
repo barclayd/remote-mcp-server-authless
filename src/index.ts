@@ -38,7 +38,7 @@ export class MyMCP extends McpAgent {
 
     this.server.tool(
       'local-area-insights',
-      'Returns Anyvan-specific insights locally relevant to the provided postcode. Includes the following data points for the local area: average home move cost, average four bed home move cost, average savings in specified currency made by customers who have moved with Anyvan vs other removal companies, and the number of quotes received',
+      'Returns Anyvan-specific insights locally relevant to the provided postcode. Includes the following data points for the local area specific to Anyvan: total bookings in the area with Anyvan, average home move cost, average four bed home move cost, average savings in specified currency made by customers who have moved with Anyvan vs other removal companies, and the number of quotes received',
       {
         postalCode: z
           .string()
