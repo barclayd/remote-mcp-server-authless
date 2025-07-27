@@ -2,8 +2,8 @@ import { McpServer } from '@modelcontextprotocol/sdk/server/mcp.js';
 import { McpAgent } from 'agents/mcp';
 import { z } from 'zod';
 import { bookingInsightsTool } from './tools/bookingInsights';
-import { reviewsTool } from './tools/reviews';
 import { localAreaInsightsTool } from './tools/localAreaInsights';
+import { reviewsTool } from './tools/reviews';
 
 export class MyMCP extends McpAgent {
   server = new McpServer({
@@ -38,7 +38,7 @@ export class MyMCP extends McpAgent {
 
     this.server.tool(
       'local-area-insights',
-      'Returns Anyvan-specific insights locally relevant to the provided postcode. Includes the following data points for the local area: average home move cost, average four bed home move cost, average savings in specified currency and the number of quotes received',
+      'Returns Anyvan-specific insights locally relevant to the provided postcode. Includes the following data points for the local area: average home move cost, average four bed home move cost, average savings in specified currency made by customers who have moved with Anyvan vs other removal companies, and the number of quotes received',
       {
         postalCode: z
           .string()
@@ -46,7 +46,7 @@ export class MyMCP extends McpAgent {
             `UK Postal Code to use as location for fetching locally relevant insights for a customer's move (e.g. WA15 8NN, M74HU)`,
           ),
       },
-        localAreaInsightsTool,
+      localAreaInsightsTool,
     );
   }
 }
