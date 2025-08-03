@@ -1,0 +1,103 @@
+import { Client } from '@hubspot/api-client';
+import { FilterOperatorEnum } from '@hubspot/api-client/lib/codegen/crm/deals';
+import type { CallToolResult } from '@modelcontextprotocol/sdk/types.js';
+import { HubspotDealSchema } from '../schemas/hubspotDealSchema';
+
+export const hubspotDealPropertiesTool = async ({
+  quoteId,
+  hubspotAccessToken,
+}: {
+  quoteId: string;
+  hubspotAccessToken: string;
+}): Promise<CallToolResult> => {
+  const hubspotClient = new Client({
+    accessToken: hubspotAccessToken,
+  });
+
+  const searchResults = await hubspotClient.crm.deals.searchApi.doSearch({
+    filterGroups: [
+      {
+        filters: [
+          {
+            propertyName: 'prelisting_token',
+            operator: FilterOperatorEnum.Eq,
+            value: quoteId,
+          },
+        ],
+      },
+    ],
+    properties: [
+      'dealname',
+      'amount',
+      'matrix_cubic_meters',
+      'deal_currency_code',
+      'hs_deal_stage_probability',
+      'locale',
+      'quote_price',
+      'hs_analytics_latest_source',
+      'hs_analytics_source',
+      'booked_by_admin',
+      'contact_record_id_sync',
+      'category_name',
+      'number_of_men',
+      'number_of_pre_listing_edits_made',
+      'removals_to_furniture',
+      'selected_date',
+      'special_instructions',
+    ],
+    limit: 1,
+  });
+
+  if (searchResults.results.length !== 1) {
+    return {
+      content: [
+        {
+          type: 'text',
+          text: 'Hubspot Contact Properties errored. Please use an alternative data source',
+        },
+      ],
+    };
+  }
+
+  const hubspotDeal = HubspotDealSchema.parse(
+    searchResults.results[0].properties,
+  );
+
+  const contextualHubspotDealProperties = {
+    amount: hubspotDeal.amount,
+    quotePrice: hubspotDeal.quote_price,
+    wasBookedBySalesAgent: hubspotDeal.booked_by_admin === 'yes',
+    bookingType: hubspotDeal.category_name,
+    currency: hubspotDeal.deal_currency_code,
+    locale: hubspotDeal.locale,
+    probabilityOfDealCompleting: hubspotDeal.hs_deal_stage_probability,
+    metadata: {
+      createdAt: hubspotDeal.createdate,
+      dateLastModified: hubspotDeal.hs_lastmodifieddate,
+      dealName: hubspotDeal.dealname,
+      editsCount: hubspotDeal.number_of_pre_listing_edits_made,
+    },
+    moveSizeInCubicMetres: hubspotDeal.matrix_cubic_meters,
+    numberOfMovers: hubspotDeal.number_of_men,
+    isR2FFlow: hubspotDeal.removals_to_furniture,
+    moveDate: hubspotDeal.selected_date,
+    specialInstructionsFromCustomer: hubspotDeal.special_instructions,
+    contactId: hubspotDeal.contact_record_id_sync,
+  };
+
+  const contactIdContext = `The contactId for this Hubspot deal is ${hubspotDeal.contact_record_id_sync} and should be used to look up relevant information about the Contact on hubspot`;
+
+  return {
+    content: [
+      {
+        type: 'text',
+        text: String(
+          JSON.stringify({
+            context: contactIdContext,
+            contextualHubspotDealProperties,
+          }),
+        ),
+      },
+    ],
+  };
+};
