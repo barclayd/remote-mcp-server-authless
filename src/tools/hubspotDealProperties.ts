@@ -83,6 +83,9 @@ export const hubspotDealPropertiesTool = async ({
     moveDate: hubspotDeal.selected_date,
     specialInstructionsFromCustomer: hubspotDeal.special_instructions,
     contactId: hubspotDeal.contact_record_id_sync,
+    leadSource: hubspotDeal.affiliate_admin_lead,
+    numberOfDaysUntilMoveDate: hubspotDeal.numberOfDaysUntilMoveDate,
+    moveDistanceInMiles: hubspotDeal.milage,
   };
 
   const contactIdContext = `The contactId for this Hubspot deal is ${hubspotDeal.contact_record_id_sync} and should be used to look up relevant information about the Contact on hubspot`;

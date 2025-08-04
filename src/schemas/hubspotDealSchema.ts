@@ -21,4 +21,7 @@ export const HubspotDealSchema = z.object({
   removals_to_furniture: z.enum(['yes', 'no']),
   selected_date: z.string().regex(/^\d{4}-\d{2}-\d{2}$/), // YYYY-MM-DD
   special_instructions: z.string().nullable(),
+  affiliate_admin_lead: z.string(),
+  numberOfDaysUntilMoveDate: z.string(),
+  milage: z.string(),
 });

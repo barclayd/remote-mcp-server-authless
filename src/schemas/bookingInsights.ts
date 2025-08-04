@@ -3,7 +3,7 @@ import { z } from 'zod';
 export const BookingDataSchema = z.object({
   quoteId: z.string(),
   quotePrice: z.string(),
-  quoteCurrency: z.string(),
+  quoteCurrency: z.string().nullable(),
   quoteStatus: z.string(),
   quoteDescription: z.string().nullable(),
   scheduledDate: z.string().nullable(),
