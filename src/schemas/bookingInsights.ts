@@ -1,35 +1,32 @@
 import { z } from 'zod';
+import { nullableObject } from './utils';
 
-export const BookingDataSchema = z.object({
-  quoteId: z.string().nullable(),
-  quotePrice: z.string().nullable(),
-  quoteCurrency: z.string().nullable(),
-  quoteStatus: z.string().nullable(),
-  quoteDescription: z.string().nullable(),
-  scheduledDate: z.string().nullable(),
-  continueQuoteUrl: z.string().url().nullable(),
-  locations: z
-    .object({
-      pickup: z.object({
-        city: z.string(),
-        postalCode: z.string(),
-        fullAddress: z.string(),
-      }),
-      delivery: z.object({
-        city: z.string(),
-        postalCode: z.string(),
-        fullAddress: z.string(),
-      }),
-    })
-    .nullable(),
-  items: z.number().int().nonnegative().nullable(),
-  itemsCount: z.number().int().nonnegative().nullable(),
-  itemNamesByVolumeDesc: z.array(z.string()).nullable(),
-  moveItems: z.array(z.unknown()).nullable(),
-  agentInteraction: z
-    .object({
-      agentName: z.string(),
-      agentImageUrl: z.string().url(),
-    })
-    .nullable(),
+export const BookingDataSchema = nullableObject({
+  quoteId: z.string(),
+  quotePrice: z.string(),
+  quoteCurrency: z.string(),
+  quoteStatus: z.string(),
+  quoteDescription: z.string(),
+  scheduledDate: z.string(),
+  continueQuoteUrl: z.string().url(),
+  locations: nullableObject({
+    pickup: z.object({
+      city: z.string(),
+      postalCode: z.string(),
+      fullAddress: z.string(),
+    }),
+    delivery: nullableObject({
+      city: z.string(),
+      postalCode: z.string(),
+      fullAddress: z.string(),
+    }),
+  }),
+  items: z.number().int().nonnegative(),
+  itemsCount: z.number().int().nonnegative(),
+  itemNamesByVolumeDesc: z.array(z.string()),
+  moveItems: z.array(z.unknown()),
+  agentInteraction: z.object({
+    agentName: z.string(),
+    agentImageUrl: z.string().url(),
+  }),
 });

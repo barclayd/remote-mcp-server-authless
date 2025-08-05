@@ -1,11 +1,12 @@
 import { z } from 'zod';
+import { nullableObject } from './utils';
 
-export const LocalAreaInsights = z.object({
+export const LocalAreaInsights = nullableObject({
   postcode: z.string(),
   total_bookings: z.string(),
   location: z.string(),
   timePeriod: z.nullable(z.any()),
-  meta: z.object({
+  meta: nullableObject({
     shortPostalCode: z.string(),
     associatedTitle: z.string(),
     faqAverageCost: z.string(),

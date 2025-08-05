@@ -1,6 +1,7 @@
 import { z } from 'zod';
+import { nullableObject } from './utils';
 
-export const HubspotDealSchema = z.object({
+export const HubspotDealSchema = nullableObject({
   amount: z.string().nullable(),
   booked_by_admin: z.enum(['yes', 'no']).nullable(),
   category_name: z.enum(['Furniture', 'Removals', 'Storage']).nullable(),
