@@ -1,7 +1,7 @@
 import { z } from 'zod';
-import { nullableObject } from './utils';
+import { nullishObject } from './utils';
 
-const ReviewSchema = nullableObject({
+const ReviewSchema = nullishObject({
   id: z.string().uuid(),
   reviewerName: z.string(),
   address: z.string(),
@@ -10,13 +10,13 @@ const ReviewSchema = nullableObject({
   reviewDescription: z.string(),
   category: z.string(),
   date: z.string(),
-  meta: nullableObject({
+  meta: nullishObject({
     location: z.string(),
     shortPostalCode: z.string(),
   }),
 });
 
-export const ReviewsSchema = nullableObject({
+export const ReviewsSchema = nullishObject({
   postcode: z.string(),
   reviews: z.array(ReviewSchema),
 });

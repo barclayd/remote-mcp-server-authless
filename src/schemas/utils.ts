@@ -1,11 +1,13 @@
 import { z } from 'zod';
 
-export const nullableObject = <T extends z.ZodRawShape>(shape: T) => {
-  const nullableShape = {} as { [K in keyof T]: z.ZodNullable<T[K]> };
+export const nullishObject = <T extends z.ZodRawShape>(shape: T) => {
+  const nullishShape = {} as {
+    [K in keyof T]: z.ZodOptional<z.ZodNullable<T[K]>>;
+  };
 
   for (const key in shape) {
-    nullableShape[key] = shape[key].nullable();
+    nullishShape[key] = shape[key].nullish();
   }
 
-  return z.object(nullableShape);
+  return z.object(nullishShape);
 };

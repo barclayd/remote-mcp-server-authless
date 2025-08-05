@@ -1,7 +1,7 @@
 import { z } from 'zod';
-import { nullableObject } from './utils';
+import { nullishObject } from './utils';
 
-export const BookingDataSchema = nullableObject({
+export const BookingDataSchema = nullishObject({
   quoteId: z.string(),
   quotePrice: z.string(),
   quoteCurrency: z.string(),
@@ -9,13 +9,13 @@ export const BookingDataSchema = nullableObject({
   quoteDescription: z.string(),
   scheduledDate: z.string(),
   continueQuoteUrl: z.string().url(),
-  locations: nullableObject({
+  locations: nullishObject({
     pickup: z.object({
       city: z.string(),
       postalCode: z.string(),
       fullAddress: z.string(),
     }),
-    delivery: nullableObject({
+    delivery: nullishObject({
       city: z.string(),
       postalCode: z.string(),
       fullAddress: z.string(),

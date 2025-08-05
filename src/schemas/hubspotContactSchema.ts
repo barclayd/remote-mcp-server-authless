@@ -1,7 +1,7 @@
 import { z } from 'zod';
-import { nullableObject } from './utils';
+import { nullishObject } from './utils';
 
-export const HubspotContactSchema = nullableObject({
+export const HubspotContactSchema = nullishObject({
   anyvan_username: z.string(),
   avb_or_av_consumer_: z.enum(['AV Consumer', 'AVB']),
   createdate: z.string().datetime(),
