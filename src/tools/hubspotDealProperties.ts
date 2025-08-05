@@ -44,6 +44,10 @@ export const hubspotDealPropertiesTool = async ({
       'removals_to_furniture',
       'selected_date',
       'special_instructions',
+      'affiliate_agent_name',
+      'mileage',
+      'days_until_move',
+      'affiliate_admin_lead',
     ],
     limit: 1,
   });
@@ -84,8 +88,9 @@ export const hubspotDealPropertiesTool = async ({
     specialInstructionsFromCustomer: hubspotDeal.special_instructions,
     contactId: hubspotDeal.contact_record_id_sync,
     leadSource: hubspotDeal.affiliate_admin_lead,
-    numberOfDaysUntilMoveDate: hubspotDeal.numberOfDaysUntilMoveDate,
-    moveDistanceInMiles: hubspotDeal.milage,
+    numberOfDaysUntilMoveDate: hubspotDeal.days_until_move,
+    moveDistanceInMiles: hubspotDeal.mileage,
+    affiliateAgentName: hubspotDeal.affiliate_agent_name,
   };
 
   const contactIdContext = `The contactId for this Hubspot deal is ${hubspotDeal.contact_record_id_sync} and should be used to look up relevant information about the Contact on hubspot`;

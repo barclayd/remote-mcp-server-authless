@@ -25,4 +25,5 @@ export const HubspotDealSchema = nullishObject({
   affiliate_admin_lead: z.string(),
   days_until_move: z.string(),
   mileage: z.string(),
+  affiliate_agent_name: z.string(),
 });
