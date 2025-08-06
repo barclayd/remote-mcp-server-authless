@@ -78,8 +78,6 @@ const DayPriceSchema = nullishObject({
   }),
 }).optional();
 
-const PricesSchema = z.record(z.string(), DayPriceSchema).optional();
-
 const CartItemSchema = nullishObject({
   service_id: z.number(),
   type: z.string(),
@@ -181,7 +179,7 @@ const ListingSchema = nullishObject({
   vehicle_is_operational: z.boolean(),
   origin_property_level: z.string(),
   destination_property_level: z.string(),
-  prices: PricesSchema,
+  prices: z.any(),
   pickup_time: z.string(),
   pickup_time_end: z.string(),
   men_required: z.number(),
@@ -249,11 +247,11 @@ const ListingSchema = nullishObject({
   additional_items: z.unknown(),
   packing_service_required: z.boolean(),
   destination_parking: z.string(),
-  destination_property_elevator: z.boolean(),
+  destination_property_elevator: z.number(),
   destination_number_floors: z.number(),
   destination_type_of_property: z.string(),
   origin_parking: z.string(),
-  origin_property_elevator: z.boolean(),
+  origin_property_elevator: z.number(),
   origin_number_floors: z.number(),
   origin_type_of_property: z.string(),
   customer_category: z.string(),
