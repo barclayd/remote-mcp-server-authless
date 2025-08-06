@@ -2,12 +2,12 @@ import type { CallToolResult } from '@modelcontextprotocol/sdk/types.js';
 import { BookingDataSchema } from '../schemas/bookingInsights';
 
 export const bookingInsightsTool = async ({
-  quoteId,
+  prelistingHash,
 }: {
-  quoteId: string;
+  prelistingHash: string;
 }): Promise<CallToolResult> => {
   const response = await fetch(
-    `https://booking-insights.anyvan.com/v1/quotes?quoteId=${quoteId}`,
+    `https://booking-insights.anyvan.com/v1/quotes?quoteId=${prelistingHash}`,
   );
 
   if (!response.ok) {

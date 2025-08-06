@@ -4,10 +4,10 @@ import type { CallToolResult } from '@modelcontextprotocol/sdk/types.js';
 import { HubspotDealSchema } from '../schemas/hubspotDealSchema';
 
 export const hubspotDealPropertiesTool = async ({
-  quoteId,
+  prelistingId,
   hubspotAccessToken,
 }: {
-  quoteId: string;
+  prelistingId: string;
   hubspotAccessToken: string;
 }): Promise<CallToolResult> => {
   const hubspotClient = new Client({
@@ -19,9 +19,9 @@ export const hubspotDealPropertiesTool = async ({
       {
         filters: [
           {
-            propertyName: 'prelisting_token',
+            propertyName: 'pre_listing_id',
             operator: FilterOperatorEnum.Eq,
-            value: quoteId,
+            value: prelistingId,
           },
         ],
       },

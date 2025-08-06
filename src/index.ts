@@ -5,6 +5,7 @@ import { bookingInsightsTool } from './tools/bookingInsights';
 import { hubspotContactPropertiesTool } from './tools/hubspotContactProperties';
 import { hubspotDealPropertiesTool } from './tools/hubspotDealProperties';
 import { localAreaInsightsTool } from './tools/localAreaInsights';
+import { prelistingHashTool } from './tools/prelistingHash';
 import { reviewsTool } from './tools/reviews';
 import type { Env } from './types/env';
 
@@ -15,15 +16,32 @@ export class MyMCP extends McpAgent {
   });
 
   async init() {
-    console.log(this.env);
+    this.server.tool(
+      'get_prelisting_hash',
+      'Returns a prelistingHash from prelistingId. Required for calling get_move_information, which expects a prelistingHash',
+      {
+        prelistingId: z
+          .string()
+          .describe(
+            'prelistingId, made up of numeric characters only, that represent a pre-listing (e.g. 23376497)',
+          ),
+      },
+      ({ prelistingId }) =>
+        prelistingHashTool({
+          prelistingId,
+          hubspotAccessToken: (this.env as Env).HUBSPOT_ACCESS_TOKEN,
+        }),
+    );
 
     this.server.tool(
       'get_move_information',
       'Provides specifics about a quote a customer has requested, including largest items they are moving, number of items, the agent they have been interacting with and the details of their move',
       {
-        quoteId: z
+        prelistingHash: z
           .string()
-          .describe('ID for quote (e.g. e1005ad0b50919e8c5388851f2af1d55)'),
+          .describe(
+            'Long hash, made up of alphanumeric characters, that represent a pre-listing (e.g. e1005ad0b50919e8c5388851f2af1d55)',
+          ),
       },
       bookingInsightsTool,
     );
@@ -58,13 +76,15 @@ export class MyMCP extends McpAgent {
       'get_hubspot_deal_properties',
       'Retrieves all relevant properties for a specific quote that are stored on Hubspot. This includes quote price, type of move (category or furniture), the ID of the associated contact record in Hubspot, locale, deal currency, number of times the customer has edited their quote, whether the user was added to the Removals to Furniture flow, how many professional movers will be present for the move, special instructions requested by the customer',
       {
-        quoteId: z
+        prelistingId: z
           .string()
-          .describe(`ID for quote (e.g. e1005ad0b50919e8c5388851f2af1d55)`),
+          .describe(
+            `prelistingId, made up of numeric characters only, that represent a pre-listing (e.g. 23376497)`,
+          ),
       },
-      ({ quoteId }) =>
+      ({ prelistingId }) =>
         hubspotDealPropertiesTool({
-          quoteId,
+          prelistingId,
           hubspotAccessToken: (this.env as Env).HUBSPOT_ACCESS_TOKEN,
         }),
     );
@@ -76,7 +96,7 @@ export class MyMCP extends McpAgent {
         contactId: z
           .string()
           .describe(
-            `Hubspot Contact ID. Should be retrieved from get_hubspot_deal_properties.contactId (e.g. 653796301)`,
+            `Hubspot contactId. Should be retrieved from get_hubspot_deal_properties.contactId (e.g. 653796301)`,
           ),
       },
       ({ contactId }) =>
