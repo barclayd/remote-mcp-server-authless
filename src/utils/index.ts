@@ -1,3 +1,5 @@
+import { AdditionalServiceSchema } from '../schemas/additionalServices';
+
 export const extractListingIdFromPrelistingURL = (
   url: string | null | undefined,
 ): string | undefined => {
@@ -22,7 +24,7 @@ export const extractPreListingIdFromBrochureURL = (
 
 const DEFAULT_VALUE_OF_GOODS = 5000;
 
-export const getInsurancePremiumByValue = ({
+const getInsurancePremiumByValue = ({
   ratePrice,
   taxRate,
   minPrice,
@@ -41,4 +43,49 @@ export const getInsurancePremiumByValue = ({
   }
 
   return insurancePremium;
+};
+
+export const getPremiumPrice = async (
+  categoryId: number | string | null | undefined,
+  basePremiumPrice: number | null | undefined,
+) => {
+  if (categoryId === undefined || categoryId === null) {
+    return basePremiumPrice ?? 0;
+  }
+
+  const response = await fetch(
+    `https://www.anyvan.com/ng/site-settings/additional-services/${categoryId}`,
+    {
+      headers: {
+        'X-Requested-With': 'XMLHttpRequest',
+      },
+    },
+  );
+
+  if (!response.ok) {
+    console.error('Unable to fetch response from /ng/site-settings');
+  }
+
+  const servicesData = await response.json();
+
+  const services = AdditionalServiceSchema.parse(servicesData);
+
+  const service = services.find(
+    (ratePackage) =>
+      ratePackage?.type?.includes('full_cover') &&
+      ratePackage.customer_can_add === 1,
+  );
+
+  if (!service) {
+    return basePremiumPrice;
+  }
+
+  return (
+    (basePremiumPrice ?? 0) +
+    getInsurancePremiumByValue({
+      ratePrice: service.rate_price ?? 0,
+      minPrice: service.min_price ?? 0,
+      taxRate: service.tax_rate ?? 0,
+    })
+  );
 };

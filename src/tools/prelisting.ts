@@ -1,6 +1,6 @@
 import type { CallToolResult } from '@modelcontextprotocol/sdk/types.js';
 import { PrelistingSchema } from '../schemas/prelisting';
-import { getInsurancePremiumByValue } from '../utils';
+import { getPremiumPrice } from '../utils';
 
 export const prelistingTool = async ({
   prelistingHash,
@@ -22,8 +22,6 @@ export const prelistingTool = async ({
 
   const data = await response.json();
 
-  console.log('data', data);
-
   if (typeof data === 'boolean') {
     return {
       content: [
@@ -36,6 +34,11 @@ export const prelistingTool = async ({
   }
 
   const { listing } = PrelistingSchema.parse(data);
+
+  const premiumPrice = await getPremiumPrice(
+    listing.category_id,
+    listing.lowest_price?.premium,
+  );
 
   const contextualData = {
     moveDate: listing.pickup_date,
@@ -101,13 +104,7 @@ export const prelistingTool = async ({
       },
       priceOptions: {
         standard: listing.total_price,
-        premium:
-          (listing.lowest_price?.premium ?? 0) +
-          getInsurancePremiumByValue({
-            taxRate: 0.2,
-            minPrice: 25,
-            ratePrice: 0.02,
-          }),
+        premium: premiumPrice,
       },
       services: {
         packingServiceSelected: listing.packing_service_required,
