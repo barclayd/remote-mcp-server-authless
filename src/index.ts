@@ -5,6 +5,7 @@ import { bookingInsightsTool } from './tools/bookingInsights';
 import { hubspotContactPropertiesTool } from './tools/hubspotContactProperties';
 import { hubspotDealPropertiesTool } from './tools/hubspotDealProperties';
 import { localAreaInsightsTool } from './tools/localAreaInsights';
+import { prelistingTool } from './tools/prelisting';
 import { prelistingHashTool } from './tools/prelistingHash';
 import { reviewsTool } from './tools/reviews';
 import type { Env } from './types/env';
@@ -34,8 +35,8 @@ export class MyMCP extends McpAgent {
     );
 
     this.server.tool(
-      'get_move_information',
-      'Provides specifics about a quote a customer has requested, including largest items they are moving, number of items, the agent they have been interacting with and the details of their move',
+      'get_move_information_with_agent_overview',
+      'Provides an overview of a quote that a customer has requested, including largest items they are moving, number of items, the agent they have been interacting with and the details of their move',
       {
         prelistingHash: z
           .string()
@@ -44,6 +45,19 @@ export class MyMCP extends McpAgent {
           ),
       },
       bookingInsightsTool,
+    );
+
+    this.server.tool(
+      'get_full_move_information',
+      'Provides a full and comprehensive overview of their prelisting quote, including all items, total volume, weight, address information, pricing',
+      {
+        prelistingHash: z
+          .string()
+          .describe(
+            'Long hash, made up of alphanumeric characters, that represent a pre-listing (e.g. e1005ad0b50919e8c5388851f2af1d55)',
+          ),
+      },
+      prelistingTool,
     );
 
     this.server.tool(
