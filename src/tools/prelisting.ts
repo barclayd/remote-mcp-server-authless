@@ -101,11 +101,13 @@ export const prelistingTool = async ({
       },
       priceOptions: {
         standard: listing.total_price,
-        premium: getInsurancePremiumByValue({
-          taxRate: 0.2,
-          minPrice: 25,
-          ratePrice: 0.02,
-        }),
+        premium:
+          (listing.lowest_price?.premium ?? 0) +
+          getInsurancePremiumByValue({
+            taxRate: 0.2,
+            minPrice: 25,
+            ratePrice: 0.02,
+          }),
       },
       services: {
         packingServiceSelected: listing.packing_service_required,
