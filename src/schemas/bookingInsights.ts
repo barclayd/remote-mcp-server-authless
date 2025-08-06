@@ -10,7 +10,7 @@ export const BookingDataSchema = nullishObject({
   scheduledDate: z.string(),
   continueQuoteUrl: z.string().url(),
   locations: nullishObject({
-    pickup: z.object({
+    pickup: nullishObject({
       city: z.string(),
       postalCode: z.string(),
       fullAddress: z.string(),
