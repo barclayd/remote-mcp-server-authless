@@ -21,9 +21,7 @@ export const prelistingTool = async ({
 
   const data = await response.json();
 
-  const prelistingData = PrelistingSchema.parse(data);
-
-  if (typeof prelistingData === 'boolean') {
+  if (typeof data === 'boolean') {
     return {
       content: [
         {
@@ -34,7 +32,7 @@ export const prelistingTool = async ({
     };
   }
 
-  const { listing } = prelistingData;
+  const { listing } = PrelistingSchema.parse(data);
 
   const contextualData = {
     moveDate: listing.pickup_date,

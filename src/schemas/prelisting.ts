@@ -58,12 +58,6 @@ const PriceCategoriesSchema = nullishObject({
   }),
 });
 
-const PriceSchema = nullishObject({
-  s: PriceCategoriesSchema,
-  sp: PriceCategoriesSchema,
-  p: PriceCategoriesSchema,
-});
-
 const TimeOptionSchema = nullishObject({
   from: z.string(),
   to: z.string(),
@@ -383,8 +377,6 @@ const ListingSchema = nullishObject({
   isConvertedFromFurnitureToHouseMove: z.boolean(),
 });
 
-export const PrelistingSchema = z
-  .object({
-    listing: ListingSchema,
-  })
-  .or(z.boolean());
+export const PrelistingSchema = z.object({
+  listing: ListingSchema,
+});
