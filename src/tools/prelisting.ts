@@ -1,5 +1,6 @@
 import type { CallToolResult } from '@modelcontextprotocol/sdk/types.js';
 import { PrelistingSchema } from '../schemas/prelisting';
+import { getInsurancePremiumByValue } from '../utils';
 
 export const prelistingTool = async ({
   prelistingHash,
@@ -100,7 +101,11 @@ export const prelistingTool = async ({
       },
       priceOptions: {
         standard: listing.total_price,
-        premium: listing.lowest_price?.premium,
+        premium: getInsurancePremiumByValue({
+          taxRate: 0.2,
+          minPrice: 25,
+          ratePrice: 0.02,
+        }),
       },
       services: {
         packingServiceSelected: listing.packing_service_required,
