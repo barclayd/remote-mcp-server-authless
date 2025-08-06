@@ -111,9 +111,9 @@ const CartItemSchema = nullishObject({
   customer_can_add: z.number().optional(),
   fee_numerator: z.number().optional(),
   fee_denominator: z.number().optional(),
-  cutoff_time: z.number().optional(),
+  cutoff_time: z.number().or(z.string()).optional(),
   locale: z.string().optional(),
-  version: z.string().optional(),
+  version: z.string().or(z.number()).optional(),
   basedOnValueOfGoods: z.boolean().optional(),
   category_service_id: z.number().optional(),
   category_id: z.number().optional(),
@@ -129,7 +129,9 @@ const PaymentGatewayOptionSchema = nullishObject({
     avs: z.boolean(),
     reasons: nullishObject({
       pickupInThreeDays: z.boolean(),
-    }).optional(),
+    })
+      .or(z.array(z.any()).optional())
+      .optional(),
   }).optional(),
 }).optional();
 
