@@ -7,7 +7,7 @@ export const prelistingTool = async ({
   prelistingHash: string;
 }): Promise<CallToolResult> => {
   const response = await fetch(
-    `https://www.anyvan.com/ng/prelisting/$${prelistingHash}`,
+    `https://www.anyvan.com/ng/prelisting/${prelistingHash}`,
     {
       headers: {
         'X-Requested-With': 'XMLHttpRequest',
@@ -20,6 +20,8 @@ export const prelistingTool = async ({
   }
 
   const data = await response.json();
+
+  console.log('data', data);
 
   if (typeof data === 'boolean') {
     return {
