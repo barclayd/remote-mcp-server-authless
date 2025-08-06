@@ -109,6 +109,11 @@ export const prelistingTool = async ({
     car: {
       isOperational: listing.vehicle_is_operational,
     },
+    contactDetails: {
+      email: listing.user_info?.email,
+      phoneNumber: listing.user_info?.phone_number,
+      full_name: listing.user_info?.full_name,
+    },
     metadata: {
       isBusinessMove: listing.job_is_for_business,
       locale: listing.locale,
