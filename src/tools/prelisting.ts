@@ -8,6 +8,11 @@ export const prelistingTool = async ({
 }): Promise<CallToolResult> => {
   const response = await fetch(
     `https://www.anyvan.com/ng/prelisting/$${prelistingHash}`,
+    {
+      headers: {
+        'X-Requested-With': 'XMLHttpRequest',
+      },
+    },
   );
 
   if (!response.ok) {
