@@ -37,13 +37,13 @@ export const prelistingTool = async ({
   const contextualData = {
     moveDate: listing.pickup_date,
     moveItems: listing.move_items?.map((moveItem) => ({
-      name: moveItem.name,
-      make: moveItem.make_name,
-      model: moveItem.model_name,
-      weight: moveItem.weight_unit,
-      volume: moveItem.volume,
-      dimensionUnit: moveItem.dimension_unit,
-      weightUnit: moveItem.weight_unit,
+      name: moveItem?.name,
+      make: moveItem?.make_name,
+      model: moveItem?.model_name,
+      weight: moveItem?.weight_unit,
+      volume: moveItem?.volume,
+      dimensionUnit: moveItem?.dimension_unit,
+      weightUnit: moveItem?.weight_unit,
     })),
     moveDetails: {
       pickup: {

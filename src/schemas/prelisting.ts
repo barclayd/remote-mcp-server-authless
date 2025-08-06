@@ -31,7 +31,7 @@ const MoveItemSchema = nullishObject({
   loading_time: z.number(),
   fake_id: z.string(),
   quantity: z.number(),
-});
+}).optional();
 
 const AddressDataSchema = nullishObject({
   ISO_3166_1_Alpha_2: z.string(),
@@ -44,19 +44,19 @@ const AddressDataSchema = nullishObject({
   postcode: z.string(),
   town: z.string(),
   region: z.string(),
-});
+}).optional();
 
 const UserInfoSchema = nullishObject({
   email: z.string(),
   phone_number: z.string(),
   full_name: z.string(),
-});
+}).optional();
 
 const PriceCategoriesSchema = nullishObject({
   c: nullishObject({
     '2': z.number(),
   }),
-});
+}).optional();
 
 const TimeOptionSchema = nullishObject({
   from: z.string(),
@@ -64,7 +64,7 @@ const TimeOptionSchema = nullishObject({
   s: PriceCategoriesSchema,
   sp: PriceCategoriesSchema,
   p: PriceCategoriesSchema,
-});
+}).optional();
 
 const DayPriceSchema = nullishObject({
   s: PriceCategoriesSchema,
@@ -76,9 +76,9 @@ const DayPriceSchema = nullishObject({
     count: z.number(),
     type: z.string(),
   }),
-});
+}).optional();
 
-const PricesSchema = z.record(z.string(), DayPriceSchema);
+const PricesSchema = z.record(z.string(), DayPriceSchema).optional();
 
 const CartItemSchema = nullishObject({
   service_id: z.number(),
@@ -119,23 +119,19 @@ const CartItemSchema = nullishObject({
   category_id: z.number().optional(),
   amount: z.number(),
   qty: z.number().optional(),
-});
+}).optional();
 
 const PaymentGatewayOptionSchema = nullishObject({
   default: z.boolean(),
   paymentAction: z.string().optional(),
   isCheckoutDisabledInModal: z.boolean().optional(),
-  riskSettings: z
-    .object({
-      avs: z.boolean(),
-      reasons: z
-        .object({
-          pickupInThreeDays: z.boolean(),
-        })
-        .optional(),
-    })
-    .optional(),
-});
+  riskSettings: nullishObject({
+    avs: z.boolean(),
+    reasons: nullishObject({
+      pickupInThreeDays: z.boolean(),
+    }).optional(),
+  }).optional(),
+}).optional();
 
 const AvailablePaymentGatewaysSchema = nullishObject({
   adyen_card: PaymentGatewayOptionSchema,
@@ -144,12 +140,12 @@ const AvailablePaymentGatewaysSchema = nullishObject({
   credit: PaymentGatewayOptionSchema,
   checkout_card: PaymentGatewayOptionSchema,
   pgs_stripe: PaymentGatewayOptionSchema,
-});
+}).optional();
 
 const LowestPriceSchema = nullishObject({
   standard: z.number(),
   premium: z.number(),
-});
+}).optional();
 
 const PricesKeysSchema = nullishObject({
   admin: z.string(),
@@ -162,7 +158,7 @@ const PricesKeysSchema = nullishObject({
   customer: z.string(),
   provider: z.string(),
   routes: z.string(),
-});
+}).optional();
 
 const ListingSchema = nullishObject({
   stage: z.number(),
