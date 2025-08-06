@@ -3,7 +3,7 @@ import { nullishObject } from './utils';
 
 export const HubspotContactSchema = nullishObject({
   anyvan_username: z.string(),
-  avb_or_av_consumer_: z.enum(['AV Consumer', 'AVB']),
+  avb_or_av_consumer_: z.string(),
   createdate: z.string().datetime(),
   email: z.string().email(),
   firstname: z.string(),
