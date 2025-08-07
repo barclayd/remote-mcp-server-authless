@@ -80,6 +80,26 @@ export const hubspotDealPropertiesTool = async ({
       dateLastModified: hubspotDeal.hs_lastmodifieddate,
       dealName: hubspotDeal.dealname,
       editsCount: hubspotDeal.number_of_pre_listing_edits_made,
+      prelistingStartedBy: hubspotDeal.pre_listing_started_by,
+      utm_source: hubspotDeal.utm_source,
+    },
+    pickup: {
+      longitude: hubspotDeal.from_longitude,
+      latitude: hubspotDeal.from_latitude,
+    },
+    delivery: {
+      longitude: hubspotDeal.to_longitude,
+      latitude: hubspotDeal.to_latitude,
+    },
+    pricing: {
+      quotePrice: hubspotDeal.quote_price,
+      standardPrice: hubspotDeal.removal_standard_price_v4,
+      premiumPrice: hubspotDeal.removal_premium_price_v4,
+    },
+    customer: {
+      maxStepMadeInFlow: hubspotDeal.pre_listing_max_step,
+      lastInteractionCustomerHadWithTheirQuote:
+        hubspotDeal.removal_pre_listing_last_interaction,
     },
     moveSizeInCubicMetres: hubspotDeal.matrix_cubic_meters,
     numberOfMovers: hubspotDeal.number_of_men,
