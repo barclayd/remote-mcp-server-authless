@@ -103,7 +103,7 @@ export const prelistingTool = async ({
         duration: listing.duration,
       },
       priceOptions: {
-        standard: listing.total_price,
+        standard: listing.lowest_price?.standard || listing.total_price,
         premium: premiumPrice,
       },
       services: {
