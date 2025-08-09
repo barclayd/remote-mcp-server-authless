@@ -35,7 +35,7 @@ export class MyMCP extends McpAgent {
     );
 
     this.server.tool(
-      'get_move_information_with_agent_overview',
+      'get_agent_information_for_move',
       'Provides an overview of a quote that a customer has requested, including largest items they are moving, number of items, the agent they have been interacting with and the details of their move',
       {
         prelistingHash: z
@@ -48,7 +48,7 @@ export class MyMCP extends McpAgent {
     );
 
     this.server.tool(
-      'get_full_move_information',
+      'get_move_information',
       'Provides a full and comprehensive overview of their prelisting quote, including all items, total volume, weight, address information, pricing',
       {
         prelistingHash: z
