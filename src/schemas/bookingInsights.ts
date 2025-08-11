@@ -1,32 +1,30 @@
 import { z } from 'zod';
 import { nullishObject } from './utils';
 
-export const BookingDataSchema = nullishObject({
-  quoteId: z.string(),
-  quotePrice: z.string(),
-  quoteCurrency: z.string(),
-  quoteStatus: z.string(),
-  quoteDescription: z.string(),
-  scheduledDate: z.string(),
-  continueQuoteUrl: z.string().url(),
+export const BookingInsightsSchema = nullishObject({
+  quoteId: z.any(),
+  quotePrice: z.any(),
+  quoteCurrency: z.any(),
+  quoteStatus: z.any(),
+  quoteDescription: z.any(),
+  scheduledDate: z.any(),
+  continueQuoteUrl: z.any(),
   locations: nullishObject({
-    pickup: nullishObject({
-      city: z.string(),
-      postalCode: z.string(),
-      fullAddress: z.string(),
+    pickup: z.object({
+      city: z.any(),
+      postalCode: z.any(),
+      fullAddress: z.any(),
     }),
     delivery: nullishObject({
-      city: z.string(),
-      postalCode: z.string(),
-      fullAddress: z.string(),
+      city: z.any(),
+      postalCode: z.any(),
+      fullAddress: z.any(),
     }),
   }),
-  items: z.number().int().nonnegative(),
-  itemsCount: z.number().int().nonnegative(),
-  itemNamesByVolumeDesc: z.array(z.string()),
-  moveItems: z.array(z.unknown()),
-  agentInteraction: z.object({
-    agentName: z.string(),
-    agentImageUrl: z.string().url(),
+  items: z.any(),
+  itemNamesByVolumeDesc: z.array(z.any()),
+  agentInteraction: nullishObject({
+    agentName: z.any(),
+    agentImageUrl: z.any(),
   }),
 });

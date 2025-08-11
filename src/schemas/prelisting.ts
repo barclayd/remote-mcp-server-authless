@@ -52,32 +52,6 @@ const UserInfoSchema = nullishObject({
   full_name: z.any(),
 }).optional();
 
-const PriceCategoriesSchema = nullishObject({
-  c: nullishObject({
-    '2': z.any(),
-  }),
-}).optional();
-
-const TimeOptionSchema = nullishObject({
-  from: z.any(),
-  to: z.any(),
-  s: PriceCategoriesSchema,
-  sp: PriceCategoriesSchema,
-  p: PriceCategoriesSchema,
-}).optional();
-
-const DayPriceSchema = nullishObject({
-  s: PriceCategoriesSchema,
-  sp: PriceCategoriesSchema,
-  p: PriceCategoriesSchema,
-  f: z.array(z.any()),
-  o: z.record(z.any(), TimeOptionSchema),
-  r: nullishObject({
-    count: z.any(),
-    type: z.any(),
-  }),
-}).optional();
-
 const CartItemSchema = nullishObject({
   service_id: z.any(),
   type: z.any(),

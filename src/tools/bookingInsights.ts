@@ -1,5 +1,5 @@
 import type { CallToolResult } from '@modelcontextprotocol/sdk/types.js';
-import { BookingDataSchema } from '../schemas/bookingInsights';
+import { BookingInsightsSchema } from '../schemas/bookingInsights';
 
 export const bookingInsightsTool = async ({
   prelistingHash,
@@ -16,9 +16,35 @@ export const bookingInsightsTool = async ({
 
   const data = await response.json();
 
-  const bookingInsights = BookingDataSchema.parse(data);
+  const bookingInsights = BookingInsightsSchema.parse(data);
+
+  const context = {
+    prelistingId: bookingInsights.quoteId,
+    customerSelectedPrice: bookingInsights.quotePrice,
+    propertyType: bookingInsights.quoteDescription,
+    selectedMoveDate: bookingInsights.scheduledDate,
+    continueQuoteUrl: bookingInsights.continueQuoteUrl,
+    pickup: {
+      location: {
+        city: bookingInsights.locations?.pickup?.city,
+        postalCode: bookingInsights.locations?.pickup?.city,
+      },
+    },
+    delivery: {
+      location: {
+        city: bookingInsights.locations?.pickup?.city,
+        postalCode: bookingInsights.locations?.pickup?.city,
+      },
+    },
+    numberOfItemsBeingMoved: bookingInsights.items,
+    itemNamesSortedByVolumeDesc: bookingInsights.itemNamesByVolumeDesc,
+    agentHandlingMove: {
+      name: bookingInsights.agentInteraction?.agentName,
+      imageURL: bookingInsights.agentInteraction?.agentImageUrl,
+    },
+  };
 
   return {
-    content: [{ type: 'text', text: String(JSON.stringify(bookingInsights)) }],
+    content: [{ type: 'text', text: String(JSON.stringify(context)) }],
   };
 };
