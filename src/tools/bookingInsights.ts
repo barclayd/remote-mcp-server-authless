@@ -24,18 +24,6 @@ export const bookingInsightsTool = async ({
     propertyType: bookingInsights.quoteDescription,
     selectedMoveDate: bookingInsights.scheduledDate,
     continueQuoteUrl: bookingInsights.continueQuoteUrl,
-    pickup: {
-      location: {
-        city: bookingInsights.locations?.pickup?.city,
-        postalCode: bookingInsights.locations?.pickup?.city,
-      },
-    },
-    delivery: {
-      location: {
-        city: bookingInsights.locations?.pickup?.city,
-        postalCode: bookingInsights.locations?.pickup?.city,
-      },
-    },
     numberOfItemsBeingMoved: bookingInsights.items,
     itemNamesSortedByVolumeDesc: bookingInsights.itemNamesByVolumeDesc,
     agentHandlingMove: {
