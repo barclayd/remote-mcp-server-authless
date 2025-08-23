@@ -42,6 +42,7 @@ export const prelistingTool = async ({
 
   const contextualData = {
     moveDate: listing.pickup_date,
+    continueQuoteUrl: listing.pre_listing_url,
     moveItems: listing.move_items?.map((moveItem) => ({
       name: moveItem?.name,
       make: moveItem?.make_name,
@@ -72,6 +73,7 @@ export const prelistingTool = async ({
           town: listing.pickup_address_data?.town,
           region: listing.pickup_address_data?.region,
         },
+        estimatedLoadingTimeInSeconds: listing.estimated_loading_time,
       },
       delivery: {
         location: {
@@ -89,6 +91,7 @@ export const prelistingTool = async ({
           hasLift: listing.destination_property_elevator,
           parking: listing.destination_parking,
         },
+        estimatedUnloadingTimeInSeconds: listing.estimated_unloading_time,
       },
       details: {
         menRequired: listing.men_required,
@@ -120,6 +123,7 @@ export const prelistingTool = async ({
     },
     metadata: {
       isBusinessMove: listing.job_is_for_business,
+      isInternationalMove: listing.is_international,
       locale: listing.locale,
       currency: listing.currency,
       isConvertedFromFurnitureToHouseMove:
