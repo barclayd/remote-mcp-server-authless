@@ -79,8 +79,8 @@ export class MyMCP extends McpAgent {
       'get_forecasted_weather_for_date',
       'Returns full forecasted weather conditions for a given latitude and longitude on a given date within the next 14 days.',
       {
-        latitude: z.number(),
-        longitude: z.number(),
+        latitude: z.string(),
+        longitude: z.string(),
         date: z
           .string()
           .date(

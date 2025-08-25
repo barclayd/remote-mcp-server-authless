@@ -6,8 +6,8 @@ export const weatherTool = async ({
   longitude,
   date,
 }: {
-  latitude: number;
-  longitude: number;
+  latitude: string;
+  longitude: string;
   date: string;
 }): Promise<CallToolResult> => {
   const response = await fetch(
