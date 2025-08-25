@@ -20,6 +20,8 @@ export const weatherTool = async ({
 
   const data = await response.json();
 
+  console.log('data', data);
+
   const weather = WeatherSchema.parse(data);
 
   const formattedForecast = [
