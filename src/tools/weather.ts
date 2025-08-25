@@ -15,7 +15,7 @@ export const weatherTool = async ({
   );
 
   if (!response.ok) {
-    console.error('Unable to fetch response from bookings/reviews');
+    console.error('Unable to fetch response from weather api');
   }
 
   const data = await response.json();
