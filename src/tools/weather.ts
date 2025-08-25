@@ -16,11 +16,17 @@ export const weatherTool = async ({
 
   if (!response.ok) {
     console.error('Unable to fetch response from weather api');
+    return {
+      content: [
+        {
+          type: 'text',
+          text: `Unable to retrieve weather. Error: ${JSON.stringify(await response.json())}`,
+        },
+      ],
+    };
   }
 
   const data = await response.json();
-
-  console.log('data', data);
 
   const weather = WeatherSchema.parse(data);
 
