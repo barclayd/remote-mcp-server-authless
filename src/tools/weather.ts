@@ -11,7 +11,7 @@ export const weatherTool = async ({
   date: string;
 }): Promise<CallToolResult> => {
   const response = await fetch(
-    `https://api.open-meteo.com/v1/forecast?latitude=${latitude}&longitude=${longitude}&timezone=auto&daily=temperature_2m_max,precipitation_probability_max,sunshine_duration,wind_speed_10m_max,wind_gusts_10m_max,precipitation_sum,precipitation_hours&start_date=${date}4&end_date=${date}`,
+    `https://api.open-meteo.com/v1/forecast?latitude=${latitude}&longitude=${longitude}&timezone=auto&daily=temperature_2m_max,precipitation_probability_max,sunshine_duration,wind_speed_10m_max,wind_gusts_10m_max,precipitation_sum,precipitation_hours&start_date=${date}&end_date=${date}`,
   );
 
   if (!response.ok) {
@@ -28,7 +28,7 @@ export const weatherTool = async ({
     `Max wind speed: ${weather.daily?.wind_speed_10m_max} ${weather.daily_units?.wind_speed_10m_max}`,
     `Wind gust of up to: ${weather.daily?.wind_gusts_10m_max} ${weather.daily_units?.wind_gusts_10m_max}`,
     `Total precipitation: ${weather.daily?.precipitation_sum} ${weather.daily_units?.precipitation_sum}`,
-    `Number of hours of precipitation: ${weather.daily?.precipitation_hours} ${weather.daily_units?.precipitation_hours}`,
+    `Number of hours of precipitation: ${weather.daily?.precipitation_hours}`,
   ];
 
   return {
