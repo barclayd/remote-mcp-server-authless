@@ -10,6 +10,7 @@ import { prelistingHashTool } from './tools/prelistingHash';
 import { reviewsTool } from './tools/reviews';
 import { weatherTool } from './tools/weather';
 import type { Env } from './types/env';
+import { getDateInTwoWeeks } from './utils/date';
 
 export class MyMCP extends McpAgent {
   server = new McpServer({
@@ -76,13 +77,15 @@ export class MyMCP extends McpAgent {
 
     this.server.tool(
       'get_forecasted_weather_for_date',
-      'Returns full forecasted weather conditions for a given latitude and longitude on a given date.',
+      'Returns full forecasted weather conditions for a given latitude and longitude on a given date within the next 14 days.',
       {
         latitude: z.number(),
         longitude: z.number(),
         date: z
           .string()
-          .date('Date in the format YYYY-MM-DD (e.g. 2025-08-24)'),
+          .date(
+            `Date in the format YYYY-MM-DD (e.g. 2025-08-24). The latest date that can be provided is ${getDateInTwoWeeks()}, otherwise the API will error due to the date being out of the supported range`,
+          ),
       },
       weatherTool,
     );
