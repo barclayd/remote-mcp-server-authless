@@ -8,6 +8,7 @@ import { localAreaInsightsTool } from './tools/localAreaInsights';
 import { prelistingTool } from './tools/prelisting';
 import { prelistingHashTool } from './tools/prelistingHash';
 import { reviewsTool } from './tools/reviews';
+import { weatherTool } from './tools/weather';
 import type { Env } from './types/env';
 
 export class MyMCP extends McpAgent {
@@ -71,6 +72,19 @@ export class MyMCP extends McpAgent {
           ),
       },
       reviewsTool,
+    );
+
+    this.server.tool(
+      'get_forecasted_weather_for_date',
+      'Returns full forecasted weather conditions for a given latitude and longitude on a given date.',
+      {
+        latitude: z.number(),
+        longitude: z.number(),
+        date: z
+          .string()
+          .date('Date in the format YYYY-MM-DD (e.g. 2025-08-24)'),
+      },
+      weatherTool,
     );
 
     this.server.tool(
