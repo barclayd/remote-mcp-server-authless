@@ -6,7 +6,7 @@ export const HubspotDealSchema = nullishObject({
   booked_by_admin: z.string(),
   category_name: z.string(),
   contact_record_id_sync: z.string(),
-  createdate: z.string().datetime(), // ISO 8601
+  createdate: z.string().datetime(),
   deal_currency_code: z.string(),
   dealname: z.string(),
   hs_analytics_latest_source: z.string(),
@@ -36,4 +36,5 @@ export const HubspotDealSchema = nullishObject({
   days_until_move: z.string(),
   mileage: z.string(),
   affiliate_agent_name: z.string(),
+  local_phone_number_formatted: z.string(),
 });

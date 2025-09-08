@@ -48,6 +48,7 @@ export const hubspotDealPropertiesTool = async ({
       'mileage',
       'days_until_move',
       'affiliate_admin_lead',
+      'local_phone_number_formatted',
     ],
     limit: 1,
   });
@@ -74,6 +75,7 @@ export const hubspotDealPropertiesTool = async ({
     bookingType: hubspotDeal.category_name,
     currency: hubspotDeal.deal_currency_code,
     locale: hubspotDeal.locale,
+    anyvanPhoneNumber: hubspotDeal.local_phone_number_formatted,
     probabilityOfDealCompleting: hubspotDeal.hs_deal_stage_probability,
     metadata: {
       createdAt: hubspotDeal.createdate,
