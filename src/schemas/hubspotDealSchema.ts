@@ -37,4 +37,6 @@ export const HubspotDealSchema = nullishObject({
   mileage: z.string(),
   affiliate_agent_name: z.string(),
   local_phone_number_formatted: z.string(),
+  last_furniture_price: z.string(),
+  lowest_price: z.string(),
 });

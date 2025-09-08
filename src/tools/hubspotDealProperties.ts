@@ -49,6 +49,7 @@ export const hubspotDealPropertiesTool = async ({
       'days_until_move',
       'affiliate_admin_lead',
       'local_phone_number_formatted',
+      'last_furniture_price',
     ],
     limit: 1,
   });
@@ -69,8 +70,15 @@ export const hubspotDealPropertiesTool = async ({
   );
 
   const contextualHubspotDealProperties = {
-    amount: hubspotDeal.amount,
-    quotePrice: hubspotDeal.quote_price,
+    fallbackPrice: {
+      context:
+        'To be used as fallback if unable to retrieve price through other tools or other tools are returning null for a specific price',
+      standard:
+        hubspotDeal.last_furniture_price ||
+        hubspotDeal.quote_price ||
+        hubspotDeal.lowest_price ||
+        hubspotDeal.amount,
+    },
     wasBookedBySalesAgent: hubspotDeal.booked_by_admin === 'yes',
     bookingType: hubspotDeal.category_name,
     currency: hubspotDeal.deal_currency_code,
