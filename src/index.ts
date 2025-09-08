@@ -8,7 +8,9 @@ import { localAreaInsightsTool } from './tools/localAreaInsights';
 import { prelistingTool } from './tools/prelisting';
 import { prelistingHashTool } from './tools/prelistingHash';
 import { reviewsTool } from './tools/reviews';
+import { weatherTool } from './tools/weather';
 import type { Env } from './types/env';
+import { getDateInTwoWeeks } from './utils/date';
 
 export class MyMCP extends McpAgent {
   server = new McpServer({
@@ -35,7 +37,7 @@ export class MyMCP extends McpAgent {
     );
 
     this.server.tool(
-      'get_move_information_with_agent_overview',
+      'get_agent_information_for_move',
       'Provides an overview of a quote that a customer has requested, including largest items they are moving, number of items, the agent they have been interacting with and the details of their move',
       {
         prelistingHash: z
@@ -48,7 +50,7 @@ export class MyMCP extends McpAgent {
     );
 
     this.server.tool(
-      'get_full_move_information',
+      'get_move_information',
       'Provides a full and comprehensive overview of their prelisting quote, including all items, total volume, weight, address information, pricing',
       {
         prelistingHash: z
@@ -71,6 +73,21 @@ export class MyMCP extends McpAgent {
           ),
       },
       reviewsTool,
+    );
+
+    this.server.tool(
+      'get_forecasted_weather_for_date',
+      'Returns full forecasted weather conditions for a given latitude and longitude on a given date within the next 14 days.',
+      {
+        latitude: z.string(),
+        longitude: z.string(),
+        date: z
+          .string()
+          .date(
+            `Date in the format YYYY-MM-DD (e.g. 2025-08-24). The latest date that can be provided is ${getDateInTwoWeeks()}, otherwise the API will error due to the date being out of the supported range`,
+          ),
+      },
+      weatherTool,
     );
 
     this.server.tool(
