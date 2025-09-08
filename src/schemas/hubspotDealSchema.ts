@@ -39,4 +39,5 @@ export const HubspotDealSchema = nullishObject({
   local_phone_number_formatted: z.string(),
   last_furniture_price: z.string(),
   lowest_price: z.string(),
+  pre_listing_url: z.string(),
 });

@@ -50,6 +50,8 @@ export const hubspotDealPropertiesTool = async ({
       'affiliate_admin_lead',
       'local_phone_number_formatted',
       'last_furniture_price',
+      'lowest_price',
+      'pre_listing_url',
     ],
     limit: 1,
   });
@@ -122,6 +124,7 @@ export const hubspotDealPropertiesTool = async ({
     numberOfDaysUntilMoveDate: hubspotDeal.days_until_move,
     moveDistanceInMiles: hubspotDeal.mileage,
     affiliateAgentName: hubspotDeal.affiliate_agent_name,
+    continueQuoteUrl: hubspotDeal.pre_listing_url,
   };
 
   const contactIdContext = `The contactId for this Hubspot deal is ${hubspotDeal.contact_record_id_sync} and should be used to look up relevant information about the Contact on hubspot`;
