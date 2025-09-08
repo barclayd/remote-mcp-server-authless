@@ -49,8 +49,12 @@ export const getPremiumPrice = async (
   categoryId: number | string | null | undefined,
   basePremiumPrice: number | null | undefined,
 ) => {
+  if (!basePremiumPrice) {
+    return null;
+  }
+
   if (categoryId === undefined || categoryId === null) {
-    return basePremiumPrice ?? 0;
+    return basePremiumPrice ?? null;
   }
 
   const response = await fetch(
