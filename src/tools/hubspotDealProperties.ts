@@ -79,6 +79,7 @@ export const hubspotDealPropertiesTool = async ({
         hubspotDeal.lowest_price ||
         hubspotDeal.amount,
     },
+    moveType: hubspotDeal.category_name,
     wasBookedBySalesAgent: hubspotDeal.booked_by_admin === 'yes',
     bookingType: hubspotDeal.category_name,
     currency: hubspotDeal.deal_currency_code,
