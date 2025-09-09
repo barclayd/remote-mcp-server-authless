@@ -157,7 +157,11 @@ export class MyMCP extends McpAgent {
       'get_conversation_transcript',
       'Retrieves a full, human-readable conversation transcript from a Jiminny call. Takes a hubspot dealId as input and returns a formatted back-and-forth dialogue between Customer and Agent, merged from individual transcript segments.',
       {
-        dealId: z.string(),
+        dealId: z
+          .string()
+          .describe(
+            'Hubspot dealId (e.g. 43399829260). Hubspot dealId can be retrieved from get_hubspot_deal_properties',
+          ),
       },
       ({ dealId }) =>
         transcriptTool({
