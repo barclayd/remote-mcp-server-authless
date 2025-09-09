@@ -86,7 +86,8 @@ export const hubspotDealPropertiesTool = async ({
     bookingType: hubspotDeal.category_name,
     currency: hubspotDeal.deal_currency_code,
     locale: hubspotDeal.locale,
-    anyvanPhoneNumber: hubspotDeal.local_phone_number_formatted,
+    anyvanPhoneNumber:
+      hubspotDeal.local_phone_number_formatted ?? '020 3872 3050',
     probabilityOfDealCompleting: hubspotDeal.hs_deal_stage_probability,
     metadata: {
       createdAt: hubspotDeal.createdate,
