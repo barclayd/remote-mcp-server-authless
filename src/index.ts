@@ -1,6 +1,7 @@
 import { McpServer } from '@modelcontextprotocol/sdk/server/mcp.js';
 import { McpAgent } from 'agents/mcp';
 import { z } from 'zod';
+import { addressTool } from './tools/address';
 import { bookingInsightsTool } from './tools/bookingInsights';
 import { hubspotContactPropertiesTool } from './tools/hubspotContactProperties';
 import { hubspotDealPropertiesTool } from './tools/hubspotDealProperties';
@@ -134,6 +135,21 @@ export class MyMCP extends McpAgent {
         hubspotContactPropertiesTool({
           contactId,
           hubspotAccessToken: (this.env as Env).HUBSPOT_ACCESS_TOKEN,
+        }),
+    );
+
+    this.server.tool(
+      'get_street_address',
+      'Converts latitude/longitude coordinates to the nearest street address. Takes decimal degree coordinates (lat: -90 to 90, lon: -180 to 180) and returns structured address components including street, city, state, postal code, and country when available. Returns partial address for remote locations without street-level data.',
+      {
+        latitude: z.string(),
+        longitude: z.string(),
+      },
+      ({ latitude, longitude }) =>
+        addressTool({
+          latitude,
+          longitude,
+          mapboxAccessToken: (this.env as Env).MAPBOX_ACCESS_TOKEN,
         }),
     );
   }
