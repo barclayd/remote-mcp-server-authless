@@ -121,6 +121,7 @@ export const hubspotDealPropertiesTool = async ({
     moveDate: hubspotDeal.selected_date,
     specialInstructionsFromCustomer: hubspotDeal.special_instructions,
     contactId: hubspotDeal.contact_record_id_sync,
+    dealId: searchResults.results[0].id,
     leadSource: hubspotDeal.affiliate_admin_lead,
     numberOfDaysUntilMoveDate: hubspotDeal.days_until_move,
     moveDistanceInMiles: hubspotDeal.mileage,

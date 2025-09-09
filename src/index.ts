@@ -9,8 +9,8 @@ import { localAreaInsightsTool } from './tools/localAreaInsights';
 import { prelistingTool } from './tools/prelisting';
 import { prelistingHashTool } from './tools/prelistingHash';
 import { reviewsTool } from './tools/reviews';
+import { transcriptTool } from './tools/transcript';
 import { weatherTool } from './tools/weather';
-import type { Env } from './types/env';
 import { getDateInTwoWeeks } from './utils/date';
 
 export class MyMCP extends McpAgent {
@@ -150,6 +150,21 @@ export class MyMCP extends McpAgent {
           latitude,
           longitude,
           mapboxAccessToken: (this.env as Env).MAPBOX_ACCESS_TOKEN,
+        }),
+    );
+
+    this.server.tool(
+      'get_conversation_transcript',
+      'Retrieves a full, human-readable conversation transcript from a Jiminny call. Takes a hubspot dealId as input and returns a formatted back-and-forth dialogue between Customer and Agent, merged from individual transcript segments.',
+      {
+        dealId: z.string(),
+      },
+      ({ dealId }) =>
+        transcriptTool({
+          dealId,
+          jiminnyAccessToken: (this.env as Env).JIMINNY_ACCESS_TOKEN,
+          hubspotAccessToken: (this.env as Env).HUBSPOT_ACCESS_TOKEN,
+          openaiAPIKey: (this.env as Env).OPENAI_API_KEY,
         }),
     );
   }
