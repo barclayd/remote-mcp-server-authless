@@ -11,7 +11,7 @@ export const addressTool = async ({
   mapboxAccessToken: string;
 }): Promise<CallToolResult> => {
   const response = await fetch(
-    `https://api.mapbox.com/geocoding/v5/mapbox.places/${latitude},${longitude}.json?access_token=${mapboxAccessToken}`,
+    `https://api.mapbox.com/geocoding/v5/mapbox.places/${longitude},${latitude}.json?access_token=${mapboxAccessToken}`,
   );
 
   if (!response.ok) {
@@ -46,7 +46,7 @@ export const addressTool = async ({
     content: [
       {
         type: 'text',
-        text: `The street address for latitude: ${latitude}, longitude: ${longitude}: ${address.features[0].place_name}`,
+        text: address.features[0].place_name,
       },
     ],
   };
