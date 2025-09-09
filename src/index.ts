@@ -65,7 +65,7 @@ export class MyMCP extends McpAgent {
 
     this.server.tool(
       'get_anyvan_local_reviews',
-      'Returns a list of reviews written by customers who have used Anyvan.com. The reviews are all written by people who moved within the provided postcode. Included in the reviews is a comment left by the reviewer, a description of what they were moving, a rating and metadata such as date and location',
+      "Returns customer reviews from people who used Anyvan for moves within the specified postcode area. Each review includes the customer's written comment, what they moved, their rating score, and location/date information.",
       {
         postalCode: z
           .string()
